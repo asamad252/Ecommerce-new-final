@@ -1,0 +1,256 @@
+.drift-wall {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  perspective: var(--dw-perspective, 1400px);
+  perspective-origin: 50% 50%;
+
+  --dw-tile-w: 230px;
+  --dw-tile-h: 150px;
+  --dw-gap: 18px;
+  --dw-radius: 16px;
+  --dw-lift: 45px;
+  --dw-dim: 0.35;
+  --dw-gray: 0;
+  --dw-overlay: #172b36;
+  --dw-edge: 30%;
+
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse 82% 84% at 50% 46%,
+      #000 var(--dw-edge),
+      transparent 100%
+    ),
+    linear-gradient(
+      to top,
+      #000 var(--dw-edge),
+      transparent 100%
+    );
+
+  -webkit-mask-composite: source-in;
+
+  mask-image:
+    radial-gradient(
+      ellipse 82% 84% at 50% 46%,
+      #000 var(--dw-edge),
+      transparent 100%
+    ),
+    linear-gradient(
+      to top,
+      #000 var(--dw-edge),
+      transparent 100%
+    );
+
+  mask-composite: intersect;
+}
+
+.drift-wall__plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  display: flex;
+  flex-direction: row;
+
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+
+  cursor: pointer;
+  will-change: transform;
+}
+
+.drift-wall__col {
+  position: relative;
+
+  width: calc(
+    var(--dw-tile-w) + var(--dw-gap)
+  );
+
+  transform-style: preserve-3d;
+}
+
+.drift-wall__track {
+  display: flex;
+  flex-direction: column;
+
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.drift-wall__tile {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  height: calc(
+    var(--dw-tile-h) + var(--dw-gap)
+  );
+
+  flex: 0 0 auto;
+
+  outline: none;
+  transform-style: preserve-3d;
+
+  text-decoration: none;
+}
+
+.drift-wall__inner {
+  position: absolute;
+  inset: calc(
+    var(--dw-gap) / 2
+  );
+
+  display: block;
+
+  overflow: hidden;
+
+  border-radius: var(--dw-radius);
+
+  background: #114c5a;
+
+  opacity: var(--dw-dim);
+
+  transform: translateZ(0);
+
+  pointer-events: none;
+
+  transition:
+    transform 0.42s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    opacity 0.42s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    box-shadow 0.42s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+}
+
+.drift-wall__tile img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter:
+    grayscale(var(--dw-gray))
+    saturate(0.85)
+    contrast(1.05);
+
+  transition:
+    filter 0.42s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.drift-wall__overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      #172b36aa,
+      #114c5a55
+    );
+
+  opacity: 0.58;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.42s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
+}
+
+.drift-wall__tile.is-active
+  .drift-wall__inner,
+.drift-wall__tile:focus-visible
+  .drift-wall__inner {
+  opacity: 1;
+
+  transform:
+    translateZ(
+      var(--dw-lift)
+    );
+
+  box-shadow:
+    0 24px 60px -18px
+      rgba(0, 0, 0, 0.7),
+    0 0 0 1px
+      rgba(255, 200, 1, 0.22);
+}
+
+.drift-wall__tile.is-active img,
+.drift-wall__tile:focus-visible img {
+  filter:
+    grayscale(0)
+    saturate(1.05)
+    contrast(1.02);
+}
+
+.drift-wall__tile.is-active
+  .drift-wall__overlay,
+.drift-wall__tile:focus-visible
+  .drift-wall__overlay {
+  opacity: 0.05;
+}
+
+.drift-wall__tile:focus-visible
+  .drift-wall__inner {
+  box-shadow:
+    0 24px 60px -18px
+      rgba(0, 0, 0, 0.7),
+    0 0 0 2px
+      #ffc801;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift-wall__plane,
+  .drift-wall__track {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .drift-wall {
+    --dw-tile-w: 190px;
+    --dw-tile-h: 125px;
+    --dw-gap: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .drift-wall {
+    --dw-tile-w: 155px;
+    --dw-tile-h: 105px;
+    --dw-gap: 12px;
+  }
+}

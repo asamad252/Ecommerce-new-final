@@ -1,0 +1,174 @@
+/* ============================================================
+   Category Mega-Menu — animation & premium visual effects
+   ============================================================ */
+
+@keyframes catMenuIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.94);
+  }
+  60% {
+    transform: translateY(2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes catItemIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes catBlobFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(10px, -8px) scale(1.08);
+  }
+}
+
+@keyframes catShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.cat-menu {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.group:hover .cat-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  animation: catMenuIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cat-menu-item {
+  opacity: 0;
+}
+
+.group:hover .cat-menu-item {
+  animation: catItemIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cat-blob {
+  animation: catBlobFloat 7s ease-in-out infinite;
+}
+
+.cat-blob-2 {
+  animation: catBlobFloat 9s ease-in-out infinite reverse;
+}
+
+/* accent bar that grows taller on row hover */
+.cat-accent-bar {
+  height: 16px;
+  transition: height 0.25s ease;
+}
+
+.cat-menu-item:hover .cat-accent-bar {
+  height: 26px;
+}
+
+/* CSS-drawn caret (replaces ChevronDown icon) */
+.cat-caret {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  margin-top: -2px;
+}
+
+.group:hover .cat-caret {
+  transform: rotate(225deg);
+  margin-top: 2px;
+}
+
+/* CSS-drawn arrow (replaces ArrowRight icon) */
+.cat-arrow {
+  position: relative;
+  display: inline-block;
+  width: 12px;
+  height: 8px;
+  transform: translateX(-4px);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.cat-arrow::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 9px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.cat-arrow::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.group\/item:hover .cat-arrow {
+  transform: translateX(0);
+}
+
+.cat-arrow-all {
+  position: relative;
+  display: inline-block;
+  width: 11px;
+  height: 8px;
+}
+
+.cat-arrow-all::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 8px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.cat-arrow-all::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.cat-badge {
+  background-size: 200% auto;
+  animation: catShimmer 2.4s linear infinite;
+}
