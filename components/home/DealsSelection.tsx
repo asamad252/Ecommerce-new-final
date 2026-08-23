@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, Tag, Zap, Flame } from "lucide-react";
 import { getDealsProducts } from "@/lib/data/storeData";
 import ElectricBorder from "@/components/ui/ElectricBorder";
+import WarpText from "@/components/ui/WarpText";
 
 export default async function DealsSection() {
   const validDeals = await getDealsProducts(4);
@@ -30,11 +31,25 @@ export default async function DealsSection() {
                   <span>High-Voltage Deals</span>
                 </div>
 
-                <h2 className="mt-4 text-3xl font-black tracking-tight text-[#F1F6F4] sm:text-4xl md:text-5xl">
-                  Level up without breaking the bank.
-                </h2>
+                <div className="mt-4 -ml-2">
+                  <WarpText
+                    text="Level up without breaking the bank."
+                    color="#F1F6F4"
+                    warpStrength={0.06}
+                    warpScale={1.5}
+                    speed={0.5}
+                    pointerInfluence={0.38}
+                    pointerStrength={0.35}
+                    refraction={0.016}
+                    fontSize="clamp(1.75rem, 3.2vw, 2.75rem)"
+                    fontWeight={900}
+                    letterSpacing="-0.03em"
+                    lineHeight={1.05}
+                    style={{ height: '110px', minHeight: '90px' }}
+                  />
+                </div>
 
-                <p className="mt-4 max-w-md text-base leading-relaxed text-[#D9E8E2]/90">
+                <p className="mt-2 max-w-md text-base leading-relaxed text-[#D9E8E2]/90">
                   Get more gaming gear for less with exclusive limited-time NexGear flash discounts and bundle offers.
                 </p>
 

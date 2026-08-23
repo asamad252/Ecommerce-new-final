@@ -1,6 +1,7 @@
 import { getDealsProducts } from "@/lib/data/storeData";
 import ProductCard from "@/components/home/ProductCard";
 import ElectricBorder from "@/components/ui/ElectricBorder";
+import WarpText from "@/components/ui/WarpText";
 import { Zap } from "lucide-react";
 
 export default async function DealsPage() {
@@ -24,17 +25,31 @@ export default async function DealsPage() {
               <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[#FF9932]/15 blur-3xl" />
 
               <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div>
+                <div className="max-w-2xl">
                   <div className="inline-flex items-center gap-2 rounded-full border border-[#FFC801]/30 bg-[#FFC801]/15 px-3 py-1 text-xs font-black uppercase tracking-wider text-[#FFC801]">
                     <Zap size={14} className="fill-[#FFC801] stroke-[#FFC801]" />
                     <span>NexGear Electric Deals</span>
                   </div>
 
-                  <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
-                    Level up for less.
-                  </h1>
+                  <div className="mt-3 -ml-2">
+                    <WarpText
+                      text="Level up for less."
+                      color="#FFC801"
+                      warpStrength={0.07}
+                      warpScale={1.6}
+                      speed={0.5}
+                      pointerInfluence={0.4}
+                      pointerStrength={0.36}
+                      refraction={0.018}
+                      fontSize="clamp(2.25rem, 4.5vw, 3.5rem)"
+                      fontWeight={900}
+                      letterSpacing="-0.04em"
+                      lineHeight={1}
+                      style={{ height: '70px', minHeight: '60px' }}
+                    />
+                  </div>
 
-                  <p className="mt-3 max-w-2xl text-sm md:text-base text-[#D9E8E2]/90">
+                  <p className="mt-2 max-w-2xl text-sm md:text-base text-[#D9E8E2]/90">
                     Explore high-voltage discounts, flash bundle deals, and premium hardware markdowns.
                   </p>
                 </div>
