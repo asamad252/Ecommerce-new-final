@@ -2,7 +2,6 @@ import { getShopProducts } from "@/lib/data/storeData";
 import ProductCard from "@/components/home/ProductCard";
 import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
-import MaskedHeading from "@/components/ui/MaskedHeading";
 
 export default async function NewArrivalsPage() {
   const products = await getShopProducts({ sort: "newest" });
@@ -19,22 +18,9 @@ export default async function NewArrivalsPage() {
               </p>
             </div>
 
-            <div className="mt-2">
-              <MaskedHeading
-                text="New Arrivals"
-                tag="h1"
-                align="left"
-                weight={900}
-                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80"
-                fillScale={1.3}
-                parallax={24}
-                drift={14}
-                reveal="wipe"
-                trigger="mount"
-                textScale={0.09}
-                className="font-black drop-shadow-sm text-[#172B36]"
-              />
-            </div>
+            <h1 className="mt-2 text-4xl font-black tracking-tight text-[#172B36] md:text-5xl">
+              New Arrivals
+            </h1>
 
             <p className="mt-4 max-w-2xl text-[#114C5A]">
               The latest flagship releases, hardware drops, and newly restocked gaming gear.

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { getFeaturedProducts } from "@/lib/data/storeData";
 import { ChromaGrid } from "@/components/effects/ChromaGrid";
-import MaskedHeading from "@/components/ui/MaskedHeading";
 
 const getBrandStyling = (brandName?: string | null, categoryName?: string | null) => {
   const brand = (brandName || "").toLowerCase();
@@ -124,22 +123,9 @@ export default async function FeaturedProducts() {
               </span>
             </div>
 
-            <div className="mt-3 max-w-2xl">
-              <MaskedHeading
-                text="Trending Gaming Gear"
-                tag="h2"
-                align="left"
-                weight={900}
-                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80"
-                fillScale={1.3}
-                parallax={26}
-                drift={14}
-                reveal="rise"
-                trigger="view"
-                textScale={0.08}
-                className="font-black drop-shadow-md text-[#F1F6F4]"
-              />
-            </div>
+            <h2 className="mt-3 text-4xl font-black tracking-tight text-[#F1F6F4] sm:text-5xl">
+              Trending Gaming Gear
+            </h2>
 
             <p className="mt-3 max-w-2xl text-base text-[#D9E8E2]/80">
               Move your cursor across the grid to inspect flagship consoles, next-gen GPUs, and pro tournament peripherals.

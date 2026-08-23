@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
-import WarpText from "@/components/ui/WarpText";
 
 export default function NewsLetter() {
   const [email, setEmail] = useState("");
@@ -31,25 +30,11 @@ export default function NewsLetter() {
               <span>Stay Updated</span>
             </div>
 
-            <div className="mx-auto mt-4 max-w-lg">
-              <WarpText
-                text="Stay in the game."
-                color="#F1F6F4"
-                warpStrength={0.06}
-                warpScale={1.5}
-                speed={0.45}
-                pointerInfluence={0.35}
-                pointerStrength={0.32}
-                refraction={0.015}
-                fontSize="clamp(2rem, 4vw, 2.75rem)"
-                fontWeight={900}
-                letterSpacing="-0.03em"
-                lineHeight={1}
-                style={{ height: '65px', minHeight: '55px' }}
-              />
-            </div>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-[#F1F6F4] sm:text-4xl">
+              Stay in the game.
+            </h2>
 
-            <p className="mx-auto mt-2 max-w-xl leading-relaxed text-[#D9E8E2]/85 text-sm sm:text-base">
+            <p className="mx-auto mt-3 max-w-xl leading-relaxed text-[#D9E8E2]/85 text-sm sm:text-base">
               Get new product drops, exclusive flash deals, and tournament gear markdowns straight to your inbox.
             </p>
 
