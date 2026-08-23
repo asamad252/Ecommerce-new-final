@@ -1,69 +1,76 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { getCategories } from "@/lib/data/storeData";
 
-export default async function CategorySidebar() {
-  const supabase = await createClient();
+interface CategorySidebarProps {
+  currentCategory?: string;
+}
 
-  const { data: categories, error } = await supabase
-    .from("categories")
-    .select("id, name, slug, parent_id")
-    .order("name", { ascending: true });
-
-  if (error) {
-    console.error("Failed to fetch categories:", error);
-  }
-
-  const parentCategories =
-    categories?.filter((category) => category.parent_id === null) ?? [];
+export default async function CategorySidebar({
+  currentCategory,
+}: CategorySidebarProps) {
+  const categories = await getCategories();
+  const parentCategories = categories.filter((c) => c.parent_id === null);
 
   return (
-    <aside className="w-full lg:w-64 lg:shrink-0">
-      <div className="rounded-2xl border border-[#D9E8E2] bg-white p-5">
-        <h2 className="text-lg font-black text-[#172B36]">
-          Categories
-        </h2>
+    <div className="rounded-2xl border border-[#D9E8E2] bg-white p-5">
+      <h2 className="text-lg font-black text-[#172B36]">Categories</h2>
 
-        <nav className="mt-5 space-y-2">
-          <Link
-            href="/shop"
-            className="block rounded-lg px-3 py-2 text-sm font-semibold text-[#114C5A] transition hover:bg-[#D9E8E2] hover:text-[#172B36]"
-          >
-            All Products
-          </Link>
+      <div className="mt-4 space-y-1">
+        <Link
+          href="/shop"
+          className={`block rounded-xl px-3 py-2 text-sm font-semibold transition ${
+            !currentCategory
+              ? "bg-[#114C5A] text-white font-bold shadow-sm"
+              : "text-[#172B36] hover:bg-[#F1F6F4]"
+          }`}
+        >
+          All Products
+        </Link>
 
-          {parentCategories.map((parent) => {
-            const children =
-              categories?.filter(
-                (category) => category.parent_id === parent.id
-              ) ?? [];
+        {parentCategories.map((cat) => {
+          const isActive = currentCategory === cat.slug;
+          const subcategories = categories.filter((c) => c.parent_id === cat.id);
+          const isChildActive = subcategories.some((sub) => sub.slug === currentCategory);
 
-            return (
-              <div key={parent.id}>
-                <Link
-                  href={`/shop?category=${parent.slug}`}
-                  className="block rounded-lg px-3 py-2 text-sm font-bold text-[#172B36] transition hover:bg-[#D9E8E2]"
-                >
-                  {parent.name}
-                </Link>
+          return (
+            <div key={cat.id} className="space-y-1">
+              <Link
+                href={`/shop?category=${cat.slug}`}
+                className={`block rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                  isActive
+                    ? "bg-[#114C5A] text-white font-bold shadow-sm"
+                    : isChildActive
+                    ? "bg-[#D9E8E2] text-[#114C5A] font-bold"
+                    : "text-[#172B36] hover:bg-[#F1F6F4]"
+                }`}
+              >
+                {cat.name}
+              </Link>
 
-                {children.length > 0 && (
-                  <div className="ml-3 space-y-1 border-l-2 border-[#D9E8E2] pl-3">
-                    {children.map((child) => (
+              {(isActive || isChildActive) && subcategories.length > 0 && (
+                <div className="ml-4 space-y-1 border-l-2 border-[#D9E8E2] pl-2">
+                  {subcategories.map((sub) => {
+                    const isSubActive = currentCategory === sub.slug;
+                    return (
                       <Link
-                        key={child.id}
-                        href={`/shop?category=${child.slug}`}
-                        className="block py-1.5 text-sm text-[#114C5A] transition hover:text-[#FF9932]"
+                        key={sub.id}
+                        href={`/shop?category=${sub.slug}`}
+                        className={`block rounded-lg px-2.5 py-1.5 text-xs font-semibold transition ${
+                          isSubActive
+                            ? "bg-[#FFC801] text-[#172B36] font-bold"
+                            : "text-[#114C5A] hover:bg-[#F1F6F4]"
+                        }`}
                       >
-                        {child.name}
+                        {sub.name}
                       </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </nav>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
-    </aside>
+    </div>
   );
 }

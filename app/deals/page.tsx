@@ -1,59 +1,60 @@
-import { createClient } from "@/lib/supabase/server";
+import { getDealsProducts } from "@/lib/data/storeData";
 import ProductCard from "@/components/home/ProductCard";
+import ElectricBorder from "@/components/ui/ElectricBorder";
+import { Zap } from "lucide-react";
 
 export default async function DealsPage() {
-  const supabase = await createClient();
-
-  const { data: products, error } = await supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      slug,
-      price,
-      compare_at_price,
-      stock,
-      product_images (
-        image_url,
-        is_primary,
-        sort_order
-      )
-    `)
-    .eq("is_active", true)
-    .not("compare_at_price", "is", null)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("Failed to fetch deals:", error);
-  }
-
-  const deals =
-    products?.filter(
-      (product) =>
-        product.compare_at_price !== null &&
-        Number(product.compare_at_price) > Number(product.price)
-    ) ?? [];
+  const deals = await getDealsProducts(30);
 
   return (
     <main className="bg-[#F1F6F4] py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Electrifying Header Banner */}
+        <div className="mb-12">
+          <ElectricBorder
+            color="#FFC801"
+            speed={1}
+            chaos={0.12}
+            borderRadius={28}
+            className="w-full shadow-xl"
+          >
+            <div className="relative overflow-hidden rounded-[28px] bg-[#172B36] p-8 md:p-12 text-[#F1F6F4]">
+              {/* Background gradient lights */}
+              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#FFC801]/15 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-[#FF9932]/15 blur-3xl" />
 
-        {/* Header */}
-        <div className="mb-10">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#FF9932]">
-            NexGear Deals
-          </p>
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#FFC801]/30 bg-[#FFC801]/15 px-3 py-1 text-xs font-black uppercase tracking-wider text-[#FFC801]">
+                    <Zap size={14} className="fill-[#FFC801] stroke-[#FFC801]" />
+                    <span>NexGear Electric Deals</span>
+                  </div>
 
-          <h1 className="mt-2 text-4xl font-black tracking-tight text-[#172B36] md:text-5xl">
-            Level up for less.
-          </h1>
+                  <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
+                    Level up for less.
+                  </h1>
 
-          <p className="mt-4 max-w-2xl text-[#114C5A]">
-            Explore the latest NexGear discounts and gaming deals.
-          </p>
+                  <p className="mt-3 max-w-2xl text-sm md:text-base text-[#D9E8E2]/90">
+                    Explore high-voltage discounts, flash bundle deals, and premium hardware markdowns.
+                  </p>
+                </div>
+
+                <div className="flex shrink-0 items-center gap-3">
+                  <div className="rounded-2xl border border-[#FFC801]/30 bg-[#12242F] px-5 py-3 text-center">
+                    <p className="text-2xl font-black text-[#FFC801]">{deals.length}</p>
+                    <p className="text-xs font-bold text-[#D9E8E2]/70 uppercase tracking-wider">Active Deals</p>
+                  </div>
+                  <div className="rounded-2xl border border-[#FF9932]/30 bg-[#12242F] px-5 py-3 text-center">
+                    <p className="text-2xl font-black text-[#FF9932]">-40%</p>
+                    <p className="text-xs font-bold text-[#D9E8E2]/70 uppercase tracking-wider">Max Savings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ElectricBorder>
         </div>
 
-        {/* Deals */}
+        {/* Deals Listing */}
         {deals.length === 0 ? (
           <div className="rounded-2xl border border-[#D9E8E2] bg-white p-12 text-center">
             <h2 className="text-2xl font-black text-[#172B36]">

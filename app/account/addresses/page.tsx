@@ -1,17 +1,28 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/data/storeData";
 import AccountNav from "@/components/account/AccountNav";
 import AddressList from "@/components/account/AddressList";
 import AddressForm from "@/components/account/AddressForm";
 
 export default async function AddressesPage() {
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    redirect("/login");
+  }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  let supabase = null;
+  try {
+    supabase = await createClient();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    user = authUser;
+  } catch {
+    user = null;
+  }
 
-  if (!user) {
+  if (!user || !supabase) {
     redirect("/login");
   }
 

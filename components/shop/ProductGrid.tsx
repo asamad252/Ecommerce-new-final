@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getShopProducts } from "@/lib/data/storeData";
 import ProductCard from "@/components/home/ProductCard";
 
 interface ProductGridProps {
@@ -20,116 +20,15 @@ export default async function ProductGrid({
   brand,
   inStock,
 }: ProductGridProps) {
-  const supabase = await createClient();
-
-  let query = supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      slug,
-      description,
-      price,
-      compare_at_price,
-      stock,
-      created_at,
-      category_id,
-      brand_id,
-      categories (
-        slug
-      ),
-      product_images (
-        image_url,
-        is_primary,
-        sort_order
-      )
-    `)
-    .eq("is_active", true);
-
-  // Search
-  if (search) {
-    const searchTerm = search.trim();
-
-    if (searchTerm) {
-      query = query.or(
-        `name.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%,sku.ilike.%${searchTerm}%`
-      );
-    }
-  }
-
-  // Category
-  if (category) {
-    const { data: categoryData } = await supabase
-      .from("categories")
-      .select("id")
-      .eq("slug", category)
-      .maybeSingle();
-
-    if (categoryData) {
-      query = query.eq("category_id", categoryData.id);
-    }
-  }
-
-  // Minimum price
-  if (minPrice) {
-    const value = Number(minPrice);
-
-    if (!Number.isNaN(value)) {
-      query = query.gte("price", value);
-    }
-  }
-
-  // Maximum price
-  if (maxPrice) {
-    const value = Number(maxPrice);
-
-    if (!Number.isNaN(value)) {
-      query = query.lte("price", value);
-    }
-  }
-
-  // Brand
-  if (brand) {
-    const { data: brandData } = await supabase
-      .from("brands")
-      .select("id")
-      .eq("slug", brand)
-      .maybeSingle();
-
-    if (brandData) {
-      query = query.eq("brand_id", brandData.id);
-    }
-  }
-
-  // In stock
-  if (inStock === "true") {
-    query = query.gt("stock", 0);
-  }
-
-  // Sorting
-  switch (sort) {
-    case "price-asc":
-      query = query.order("price", { ascending: true });
-      break;
-
-    case "price-desc":
-      query = query.order("price", { ascending: false });
-      break;
-
-    case "name-asc":
-      query = query.order("name", { ascending: true });
-      break;
-
-    default:
-      query = query.order("created_at", { ascending: false });
-      break;
-  }
-
-  const { data: products, error } = await query.limit(24);
-
-  if (error) {
-    console.error("Failed to fetch products:", error);
-  }
+  const products = await getShopProducts({
+    search,
+    category,
+    sort,
+    minPrice,
+    maxPrice,
+    brand,
+    inStock,
+  });
 
   if (!products || products.length === 0) {
     return (

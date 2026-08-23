@@ -51,7 +51,7 @@ export default function FeaturedProductsGallery({
         {validProducts.map((product) => (
           <Link
             key={product.id}
-            href={`/shop/${product.slug}`}
+            href={`/product/${product.slug}`}
           >
             {product.name}
           </Link>

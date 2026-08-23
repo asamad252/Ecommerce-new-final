@@ -153,7 +153,7 @@ export default function NavPill({
     return (
       <Link
         href={href}
-        ref={pillRef as any}
+        ref={pillRef as React.Ref<HTMLAnchorElement>}
         className={classes}
       >
         {content}
@@ -164,7 +164,7 @@ export default function NavPill({
   return (
     <button
       type="button"
-      ref={pillRef as any}
+      ref={pillRef as React.Ref<HTMLButtonElement>}
       onClick={onClick}
       className={classes}
     >

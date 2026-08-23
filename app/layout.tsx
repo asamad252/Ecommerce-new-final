@@ -15,12 +15,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-transparent text-[#172B36]">
-        <Navbar />
+      <body className="flex min-h-screen flex-col bg-[#172B36] text-[#F1F6F4] antialiased selection:bg-[#FFC801] selection:text-[#172B36]">
+        <div className="relative z-30">
+          <Navbar />
+        </div>
 
-        <main>{children}</main>
+        <main className="relative z-10 flex-1">{children}</main>
 
-        <Footer />
+        <div className="relative z-20 mt-auto">
+          <Footer />
+        </div>
       </body>
     </html>
   );

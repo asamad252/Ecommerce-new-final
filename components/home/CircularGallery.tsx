@@ -93,21 +93,6 @@ const DEFAULT_FONT = "bold 30px Figtree";
 const DEFAULT_FONT_URL =
   "https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap";
 
-function debounce(
-  func: (...args: unknown[]) => void,
-  wait: number
-): (...args: unknown[]) => void {
-  let timeout: ReturnType<typeof setTimeout>;
-
-  return (...args: unknown[]) => {
-    clearTimeout(timeout);
-
-    timeout = setTimeout(() => {
-      func(...args);
-    }, wait);
-  };
-}
-
 function lerp(
   p1: number,
   p2: number,

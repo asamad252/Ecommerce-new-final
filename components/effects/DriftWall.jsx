@@ -7,13 +7,25 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from "react";
 
 import "./DriftWall.css";
 
-const prefersReducedMotion = () =>
+const subscribeReducedMotion = (callback) => {
+  if (typeof window === "undefined") return () => {};
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", callback);
+  return () => {
+    mq.removeEventListener("change", callback);
+  };
+};
+
+const getReducedMotionSnapshot = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const getReducedMotionServerSnapshot = () => false;
 
 const columnFactor = (index, variance) => {
   const pseudo = ((index * 0.6180339887 + 0.35) % 1) * 2 - 1;
@@ -71,25 +83,11 @@ const DriftWall = ({
   const [containerHeight, setContainerHeight] = useState(600);
   const [activeId, setActiveId] = useState(null);
   const activeIdRef = useRef(null);
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    setReduced(prefersReducedMotion());
-
-    const mq = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
-
-    const onChange = (event) => {
-      setReduced(event.matches);
-    };
-
-    mq.addEventListener("change", onChange);
-
-    return () => {
-      mq.removeEventListener("change", onChange);
-    };
-  }, []);
+  const reduced = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot
+  );
 
   const columnItems = useMemo(() => {
     if (!items.length) return [];

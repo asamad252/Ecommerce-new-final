@@ -168,13 +168,15 @@ export default function PillNav({
       setup
     );
 
+    const currentTimelines = timelines.current;
+
     return () => {
       window.removeEventListener(
         "resize",
         setup
       );
 
-      timelines.current.forEach(
+      currentTimelines.forEach(
         (timeline) =>
           timeline?.kill()
       );

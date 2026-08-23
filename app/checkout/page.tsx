@@ -1,17 +1,28 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/data/storeData";
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import CheckoutSummary from "@/components/checkout/CheckoutSummary";
 
 export default async function CheckoutPage() {
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    redirect("/cart");
+  }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  let supabase = null;
+  try {
+    supabase = await createClient();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    user = authUser;
+  } catch {
+    user = null;
+  }
 
-  if (!user) {
+  if (!user || !supabase) {
     redirect("/login");
   }
 

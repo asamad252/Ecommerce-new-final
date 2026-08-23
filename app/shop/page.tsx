@@ -32,7 +32,7 @@ export default async function ShopPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-8 lg:flex-row">
             <div className="space-y-6">
-              <CategorySidebar />
+              <CategorySidebar currentCategory={params.category} />
 
               <ShopFilters
                 search={params.search}

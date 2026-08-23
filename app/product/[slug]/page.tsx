@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getProductBySlug } from "@/lib/data/storeData";
 import ProductGallery from "@/components/product/ProductGallery";
 import ProductInfo from "@/components/product/ProductInfo";
 
@@ -14,43 +14,19 @@ export default async function ProductPage({
 }: ProductPageProps) {
   const { slug } = await params;
 
-  const supabase = await createClient();
-
-  const { data: product, error } = await supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      slug,
-      description,
-      price,
-      compare_at_price,
-      stock,
-      brands (
-        name
-      ),
-      categories (
-        name
-      ),
-      product_images (
-        id,
-        image_url,
-        alt_text,
-        sort_order,
-        is_primary
-      )
-    `)
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .maybeSingle();
-
-  if (error) {
-    console.error("Product fetch error:", error);
-  }
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
+
+  const categoryName = Array.isArray(product.categories)
+    ? product.categories[0]?.name
+    : product.categories?.name ?? null;
+
+  const brandName = Array.isArray(product.brands)
+    ? product.brands[0]?.name
+    : product.brands?.name ?? null;
 
   return (
     <main className="bg-[#F1F6F4] py-12 md:py-16">
@@ -73,8 +49,8 @@ export default async function ProductPage({
                 : null
             }
             stock={product.stock}
-            categoryName={product.categories?.[0]?.name ?? null}
-            brandName={product.brands?.[0]?.name ?? null}
+            categoryName={categoryName}
+            brandName={brandName}
           />
         </div>
       </div>

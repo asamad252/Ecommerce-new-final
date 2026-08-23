@@ -1,16 +1,27 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/data/storeData";
 import AccountNav from "@/components/account/AccountNav";
 
 export default async function OrdersPage() {
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    redirect("/login");
+  }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  let supabase = null;
+  try {
+    supabase = await createClient();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    user = authUser;
+  } catch {
+    user = null;
+  }
 
-  if (!user) {
+  if (!user || !supabase) {
     redirect("/login");
   }
 
@@ -53,7 +64,7 @@ export default async function OrdersPage() {
           {!orders || orders.length === 0 ? (
             <div className="mt-10 rounded-2xl bg-[#F1F6F4] p-8 text-center">
               <p className="font-bold text-[#172B36]">
-                You haven't placed any orders yet.
+                You haven&apos;t placed any orders yet.
               </p>
 
               <Link

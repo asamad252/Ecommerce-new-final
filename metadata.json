@@ -1,0 +1,6 @@
+{
+  "name": "NexGear",
+  "description": "Gaming gear, consoles, accessories and digital games e-commerce store",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

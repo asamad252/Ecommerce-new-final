@@ -1,18 +1,53 @@
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/data/storeData";
 import CartItem from "@/components/cart/CartItem";
 import CartSummary from "@/components/cart/CartSummary";
 
-
 export default async function CartPage() {
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    return (
+      <main className="min-h-[60vh] bg-[#F1F6F4] px-4 py-16">
+        <div className="mx-auto max-w-xl text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#D9E8E2] text-[#114C5A]">
+            <ShoppingCart size={28} />
+          </div>
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+          <h1 className="mt-6 text-3xl font-black text-[#172B36]">
+            Your cart is empty
+          </h1>
 
-  if (!user) {
+          <p className="mt-3 text-[#114C5A]">
+            You haven&apos;t added anything to your cart yet. Explore our catalog to find your next gear!
+          </p>
+
+          <div className="mt-7 flex justify-center gap-3">
+            <Link
+              href="/shop"
+              className="rounded-xl bg-[#FFC801] px-6 py-3 font-bold text-[#172B36] transition hover:bg-[#FF9932]"
+            >
+              Start Shopping
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  let user = null;
+  let supabase = null;
+  try {
+    supabase = await createClient();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    user = authUser;
+  } catch {
+    user = null;
+  }
+
+  if (!user || !supabase) {
     return (
       <main className="min-h-[60vh] bg-[#F1F6F4] px-4 py-16">
         <div className="mx-auto max-w-xl text-center">
@@ -71,7 +106,7 @@ export default async function CartPage() {
           </h1>
 
           <p className="mt-3 text-[#114C5A]">
-            You haven't added anything to your cart yet.
+            You haven&apos;t added anything to your cart yet.
           </p>
 
           <Link

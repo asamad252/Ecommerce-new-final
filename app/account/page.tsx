@@ -1,16 +1,27 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/data/storeData";
 import AccountNav from "@/components/account/AccountNav";
 import ProfileSection from "@/components/account/ProfileSection";
 
 export default async function AccountPage() {
-  const supabase = await createClient();
+  if (!isSupabaseConfigured()) {
+    redirect("/login");
+  }
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  let supabase = null;
+  try {
+    supabase = await createClient();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    user = authUser;
+  } catch {
+    user = null;
+  }
 
-  if (!user) {
+  if (!user || !supabase) {
     redirect("/login");
   }
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { getBrands } from "@/lib/data/storeData";
 
 interface ShopFiltersProps {
   search?: string;
@@ -20,16 +20,7 @@ export default async function ShopFilters({
   brand,
   inStock,
 }: ShopFiltersProps) {
-  const supabase = await createClient();
-
-  const { data: brands, error } = await supabase
-    .from("brands")
-    .select("id, name, slug")
-    .order("name", { ascending: true });
-
-  if (error) {
-    console.error("Failed to fetch brands:", error);
-  }
+  const brands = await getBrands();
 
   const buildUrl = (overrides: Record<string, string | undefined>) => {
     const params = new URLSearchParams();
