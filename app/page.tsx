@@ -25,16 +25,7 @@ const driftItems = [
       "https://toxfrykbetnsebozzazt.supabase.co/storage/v1/object/public/Logos/RZ.png",
     title: "Razer",
   },
-  {
-    image:
-      "https://toxfrykbetnsebozzazt.supabase.co/storage/v1/object/public/Logos/nvidia.jfif",
-    title: "NVIDIA",
-  },
-  {
-    image:
-      "https://toxfrykbetnsebozzazt.supabase.co/storage/v1/object/public/Logos/images%20(1)%20(1).png",
-    title: "Gaming Brand",
-  },
+  
 ];
 
 export default function HomePage() {
