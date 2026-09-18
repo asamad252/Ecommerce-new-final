@@ -117,7 +117,7 @@ export default function CategorySidebarDrawer({
           <AlignLeft size={14} className="stroke-[2.5]" />
         </div>
         <span className="text-xs font-black uppercase tracking-wider text-[#F1F6F4] group-hover:text-[#FFC801]">
-          Sidebar
+        
         </span>
         <span className="flex h-1.5 w-1.5 rounded-full bg-[#FFC801] animate-pulse" />
       </button>
@@ -152,17 +152,9 @@ export default function CategorySidebarDrawer({
                   <AlignLeft size={20} className="stroke-[2.5]" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-1.5">
-                    <h2 className="text-base font-black tracking-tight text-[#F1F6F4]">
-                      Shop Categories
-                    </h2>
-                    <span className="rounded bg-[#FFC801]/15 px-1.5 py-0.5 text-[10px] font-black uppercase text-[#FFC801]">
-                      Line Sidebar
-                    </span>
-                  </div>
-                  <p className="text-xs text-[#D9E8E2]/70">
-                    Hover across departments for proximity lines
-                  </p>
+                  <h2 className="text-base font-black tracking-tight text-[#F1F6F4]">
+                    Shop Categories
+                  </h2>
                 </div>
               </div>
 

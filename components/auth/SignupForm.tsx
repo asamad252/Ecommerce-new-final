@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -160,7 +161,7 @@ export default function SignupForm() {
         disabled={loading}
         className="h-12 w-full rounded-xl bg-[#FFC801] font-black text-[#172B36] transition hover:bg-[#FF9932] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {loading ? "Creating account..." : "Create account"}
+        {loading ? <LumaSpin className="mx-auto" /> : "Create account"}
       </button>
 
       <p className="text-center text-sm text-[#114C5A]">

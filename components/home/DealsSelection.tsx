@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Tag, Zap, Flame } from "lucide-react";
+import { ArrowRight, Tag, Flame } from "lucide-react";
 import { getDealsProducts } from "@/lib/data/storeData";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 
@@ -25,13 +25,8 @@ export default async function DealsSection() {
             <div className="relative z-10 grid items-center gap-10 lg:grid-cols-12">
               {/* Left Column: Heading & CTAs */}
               <div className="lg:col-span-5">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#FFC801]/30 bg-[#FFC801]/15 px-3.5 py-1.5 text-xs font-black uppercase tracking-wider text-[#FFC801]">
-                  <Zap size={14} className="fill-[#FFC801] stroke-[#FFC801]" />
-                  <span>High-Voltage Deals</span>
-                </div>
-
-                <h2 className="mt-4 text-3xl font-black tracking-tight text-[#F1F6F4] sm:text-4xl md:text-5xl leading-[1.08]">
-                  Level up without breaking the bank.
+                <h2 className="text-3xl font-black tracking-tight text-[#F1F6F4] sm:text-4xl md:text-5xl leading-[1.08]">
+                  Discounted Products.
                 </h2>
 
                 <p className="mt-4 max-w-md text-base leading-relaxed text-[#D9E8E2]/90">

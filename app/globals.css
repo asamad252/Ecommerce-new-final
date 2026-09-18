@@ -24,3 +24,23 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes luma-spin {
+  0% { inset: 0 54% 54% 0; }
+  12.5% { inset: 0 54% 0 0; }
+  25% { inset: 54% 54% 0 0; }
+  37.5% { inset: 54% 0 0 0; }
+  50% { inset: 54% 0 0 54%; }
+  62.5% { inset: 0 0 0 54%; }
+  75% { inset: 0 0 54% 54%; }
+  87.5% { inset: 0 0 54% 0; }
+  100% { inset: 0 54% 54% 0; }
+}
+
+.luma-spin-ring {
+  animation: luma-spin 2.5s infinite;
+}
+
+.luma-spin-delay {
+  animation-delay: -1.25s;
+}

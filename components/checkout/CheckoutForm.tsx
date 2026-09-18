@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 interface Address {
   id: number;
@@ -185,7 +186,7 @@ export default function CheckoutForm({
           disabled={loading}
           className="mt-8 h-12 w-full rounded-xl bg-[#FFC801] font-black text-[#172B36] transition hover:bg-[#FF9932] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? "Placing Order..." : "Place Order"}
+          {loading ? <LumaSpin className="mx-auto" /> : "Place Order"}
         </button>
       )}
     </div>

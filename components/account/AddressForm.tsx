@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 export default function AddressForm() {
   const router = useRouter();
@@ -203,7 +204,7 @@ export default function AddressForm() {
         disabled={loading}
         className="mt-6 h-12 rounded-xl bg-[#FFC801] px-6 font-black text-[#172B36] transition hover:bg-[#FF9932] disabled:opacity-60"
       >
-        {loading ? "Saving..." : "Save Address"}
+        {loading ? <LumaSpin className="mx-auto" /> : "Save Address"}
       </button>
     </form>
   );

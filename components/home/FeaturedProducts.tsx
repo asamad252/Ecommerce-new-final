@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getFeaturedProducts } from "@/lib/data/storeData";
 import { ChromaGrid } from "@/components/effects/ChromaGrid";
 
@@ -116,20 +116,9 @@ export default async function FeaturedProducts() {
         {/* Header */}
         <div className="mb-12 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#FFC801]/30 bg-[#FFC801]/10 px-3.5 py-1.5 backdrop-blur-sm">
-              <Sparkles size={15} className="text-[#FFC801]" />
-              <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#FFC801]">
-                Featured Hardware
-              </span>
-            </div>
-
-            <h2 className="mt-3 text-4xl font-black tracking-tight text-[#F1F6F4] sm:text-5xl">
+            <h2 className="text-4xl font-black tracking-tight text-[#F1F6F4] sm:text-5xl">
               Trending Gaming Gear
             </h2>
-
-            <p className="mt-3 max-w-2xl text-base text-[#D9E8E2]/80">
-              Move your cursor across the grid to inspect flagship consoles, next-gen GPUs, and pro tournament peripherals.
-            </p>
           </div>
 
           <Link

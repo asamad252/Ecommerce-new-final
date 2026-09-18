@@ -39,11 +39,7 @@ export default function Hero() {
 
           <div className="relative z-10 flex min-h-[440px] items-center">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center rounded-full border border-[#FFC801]/40 bg-[#114C5A]/40 px-4 py-2 backdrop-blur-md">
-                <span className="text-xs font-black uppercase tracking-[0.18em] text-[#FFC801]">
-                  Welcome to NexGear
-                </span>
-              </div>
+             
 
               <h1 className="mt-6 text-5xl font-black leading-[0.95] tracking-tight text-[#F1F6F4] sm:text-6xl md:text-7xl">
                 Gear up.

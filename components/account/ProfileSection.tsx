@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 interface ProfileSectionProps {
   userId: string;
@@ -132,7 +133,7 @@ export default function ProfileSection({
           disabled={loading}
           className="h-12 rounded-xl bg-[#FFC801] px-6 font-black text-[#172B36] transition hover:bg-[#FF9932] disabled:opacity-60"
         >
-          {loading ? "Saving..." : "Save Changes"}
+          {loading ? <LumaSpin className="mx-auto" /> : "Save Changes"}
         </button>
       </form>
     </section>

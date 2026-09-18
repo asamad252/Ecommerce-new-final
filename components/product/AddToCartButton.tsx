@@ -3,6 +3,7 @@
 import { Check, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import QuantitySelector from "./QuantitySelector";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 interface AddToCartButtonProps {
   productId: number;
@@ -91,7 +92,7 @@ export default function AddToCartButton({
         ) : (
           <>
             <ShoppingCart size={19} />
-            {loading ? "Adding..." : "Add to Cart"}
+            {loading ? <LumaSpin /> : "Add to Cart"}
           </>
         )}
       </button>

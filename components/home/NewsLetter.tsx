@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function NewsLetter() {
   const [email, setEmail] = useState("");
@@ -25,12 +25,7 @@ export default function NewsLetter() {
           <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#114C5A]/40 blur-3xl" />
 
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#FFC801]/30 bg-[#FFC801]/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-[#FFC801]">
-              <Mail size={14} />
-              <span>Stay Updated</span>
-            </div>
-
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-[#F1F6F4] sm:text-4xl">
+            <h2 className="text-3xl font-black tracking-tight text-[#F1F6F4] sm:text-4xl">
               Stay in the game.
             </h2>
 

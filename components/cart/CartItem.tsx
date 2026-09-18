@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { LumaSpin } from "@/components/ui/luma-spin";
 
 interface CartItemProps {
   cartItemId: number;
@@ -140,7 +141,7 @@ export default function CartItem({
               className="shrink-0 rounded-lg p-2 text-[#114C5A] transition hover:bg-[#FF9932]/15 hover:text-[#FF9932] disabled:opacity-50"
               aria-label={`Remove ${name}`}
             >
-              <Trash2 size={18} />
+              {removing ? <LumaSpin size={18} /> : <Trash2 size={18} />}
             </button>
           </div>
 
@@ -160,7 +161,7 @@ export default function CartItem({
               </button>
 
               <span className="flex h-9 w-10 items-center justify-center border-x border-[#D9E8E2] text-sm font-bold text-[#172B36]">
-                {currentQuantity}
+                {loading ? <LumaSpin size={18} /> : currentQuantity}
               </span>
 
               <button

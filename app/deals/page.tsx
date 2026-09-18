@@ -1,7 +1,6 @@
 import { getDealsProducts } from "@/lib/data/storeData";
 import ProductCard from "@/components/home/ProductCard";
 import ElectricBorder from "@/components/ui/ElectricBorder";
-import { Zap } from "lucide-react";
 
 export default async function DealsPage() {
   const deals = await getDealsProducts(30);
@@ -25,12 +24,7 @@ export default async function DealsPage() {
 
               <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="max-w-2xl">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#FFC801]/30 bg-[#FFC801]/15 px-3 py-1 text-xs font-black uppercase tracking-wider text-[#FFC801]">
-                    <Zap size={14} className="fill-[#FFC801] stroke-[#FFC801]" />
-                    <span>NexGear Electric Deals</span>
-                  </div>
-
-                  <h1 className="mt-3 text-3xl font-black tracking-tight text-[#FFC801] sm:text-4xl md:text-5xl">
+                  <h1 className="text-3xl font-black tracking-tight text-[#FFC801] sm:text-4xl md:text-5xl">
                     Level up for less.
                   </h1>
 
