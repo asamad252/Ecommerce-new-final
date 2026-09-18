@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/data/storeData";
 import AccountNav from "@/components/account/AccountNav";
+export const dynamic = "force-dynamic";
 
 export default async function OrdersPage() {
   if (!isSupabaseConfigured()) {

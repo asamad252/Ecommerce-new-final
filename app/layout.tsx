@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
+
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import NavigationLoader from "@/components/ui/navigation-loader";
@@ -17,12 +19,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-[#172B36] text-[#F1F6F4] antialiased selection:bg-[#FFC801] selection:text-[#172B36]">
-        <NavigationLoader />
+
+        <Suspense fallback={null}>
+          <NavigationLoader />
+        </Suspense>
+
         <div className="relative z-30">
           <Navbar />
         </div>
 
-        <main className="relative z-10 flex-1">{children}</main>
+        <main className="relative z-10 flex-1">
+          {children}
+        </main>
 
         <div className="relative z-20 mt-auto">
           <Footer />
